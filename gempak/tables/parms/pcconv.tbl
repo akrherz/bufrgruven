@@ -15,12 +15,12 @@
 ! D. Kidwell/NCEP	 3/99	Added DPRC
 ! S. Jacobs/NCEP	 3/99	Added TCHK
 ! S. Jacobs/NCEP	 3/99	Added TPFR, TPAR, TPFC, TPAC
-! A. Hardy/GSC           4/99   Added VSBF,PR6X,P00Z,P06Z,P12Z,P18Z,DPRN 
+! A. Hardy/GSC           4/99   Added VSBF,PR6X,P00Z,P06Z,P12Z,P18Z,DPRN
 ! D. Kidwell/NCEP	 7/99	Added acft hts - icing, turb, cloud, wx
 ! A. Hardy/GSC           7/99   Added ITSY, TTSY, TFSY
 ! J. Green/AWC 		 7/99   Added XVFR
 ! A. Hardy/GSC           8/99   Added SMPH
-! G. Grosshans/SPC      10/99   Added BRBS (barbs in mph)  
+! G. Grosshans/SPC      10/99   Added BRBS (barbs in mph)
 ! D. Kidwell/NCEP	 1/00	Added ACTP
 ! D. Kidwell/NCEP	 3/00	Added IGRO, DIGR
 ! D. Kidwell/NCEP	10/00	Added CL12
@@ -33,7 +33,7 @@
 !				      TCLL,TCLM,TCLH,TCFR,TSKC,TXVF
 ! K. Brill/HPC		12/02	Added T2MS, Q2MS, STMS, STMD
 ! D. Kidwell/NCEP	 5/03	Added CMSL,MOBS,WSKC,WXVF,WCFR,TPWS,TPWN,
-!				      TPWO,AWSY,AWNM,AWMO,VWSY,VWMO	
+!				      TPWO,AWSY,AWNM,AWMO,VWSY,VWMO
 ! T. Lee/SAIC		 6/03	Added FOSB
 ! D. Kidwell/NCEP	 8/03	Added TCMS, TMOB, WCMS, WMOB
 ! S. Chiswell/Unidata	 5/04   Added PANY, RANY, SANY
@@ -281,10 +281,10 @@ CLDT = PT_CMCL ( COMT )
 CHD1 = PT_CMCL ( CHC1 )
 CHD2 = PT_CMCL ( CHC2 )
 CHD3 = PT_CMCL ( CHC3 )
-COML = PR_COML ( CHC1, CHC2, CHC3 ) 
+COML = PR_COML ( CHC1, CHC2, CHC3 )
 COMM = PR_COMM ( CHC1, CHC2, CHC3 )
 COMH = PR_COMH ( CHC1, CHC2, CHC3 )
-TCOL = PR_COML ( TCH1, TCH2, TCH3 ) 
+TCOL = PR_COML ( TCH1, TCH2, TCH3 )
 TCOM = PR_COMM ( TCH1, TCH2, TCH3 )
 TCOH = PR_COMH ( TCH1, TCH2, TCH3 )
 CLCL = PR_CLCX ( COML )

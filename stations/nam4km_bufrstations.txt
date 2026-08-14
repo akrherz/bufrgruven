@@ -496,17 +496,17 @@
 713680   43.470   -80.380  CYKF  12  0 WATERLOO WELL                    ON       317    0 Usr Rqst 6-02
 713950   44.880   -63.500  CYHZ  10  0 HALIFAX INTL ARPT                NS       145    0 METAR/TAF 2-99
 713970   44.980   -64.920  CYZX  11  0 GREENWOOD (CAN-MIL)              NS       28     0 Usr Rqst 3-05
-713990   43.720   -65.250  CWOS  10  0 SHELBURNE                        NS       30     0 
+713990   43.720   -65.250  CWOS  10  0 SHELBURNE                        NS       30     0
 715380   42.270   -82.970  CYQG  10  0 WINDSOR AIRPORT                  ON       190    0 METAR/TAF 2-99
 716000   43.930   -60.020  CWSA  0   0 SABLE ISLAND                     NS       4      0 NA110
-716010   44.630   -63.500  CYAW  10  0 SHEARWATER(CAN-MIL)              NS       51     0 
+716010   44.630   -63.500  CYAW  10  0 SHEARWATER(CAN-MIL)              NS       51     0
 716030   43.870   -66.100  CYQI  10  0 YARMOUTH                         UA       9      0 NA110 3-93
 716090   45.320   -65.880  CYSJ  11  0 SAINT JOHN AIRPORT               NB       109    0 Usr Rqst 4-05
 716230   43.030   -81.150  CYXU  12  0 LONDON AIRPORT                   ON       278    0 11-00
 716240   43.670   -79.630  CYYZ  10  0 TORONTO/PEARSON                  ON       173    0 3-93
 716250   45.950   -77.320  CYWA  10  0 PETAWAWA A ONT                   UA       130    0 3-93
 716270   45.470   -73.750  CYUL  10  0 MONTREAL/DORVAL                  QB       36     0 METAR/TAF 2-99
-716278   45.680   -74.030  CYMX  10  0 MONTREAL/MIRABEL                 QB       82     0 
+716278   45.680   -74.030  CYMX  10  0 MONTREAL/MIRABEL                 QB       82     0
 716280   45.320   -75.670  CYOW  10  0 OTTAWA INTL AIRPORT              ON       114    0 FOUS 3-93
 716290   44.230   -78.370  CYPQ  12  0 PETERBOROUGH AIRPORT             ON       191    0 11-00
 716300   44.970   -79.300  CYQA  12  0 MUSKOKA AIRPORT                  ON       282    0 11-00
@@ -588,7 +588,7 @@
 722190   33.650   -84.420  KATL  10  0 ATLANTA INTL ARPT                GA       315    0 FOUS TAF 2-99
 722195   33.780   -84.520  KFTY  10  0 ATLANTA/FULTON CO.               GA       256    0 TAF 2-99
 722196   33.880   -84.300  KPDK  10  0 ATLANTA/DEKALB                   GA       305    0 METAR/TAF 2-99
-722200   29.730   -84.980  AQQ   10  0 APALACHICOLA                     FL       7      0 
+722200   29.730   -84.980  AQQ   10  0 APALACHICOLA                     FL       7      0
 722210   30.560   -85.920  VPS   12  0 EGLIN AFB                        UA       68     0 WSR88D FOUS 3-93
 722223   30.470   -87.180  KPNS  10  0 PENSACOLA REGIONAL               FL       37     0 TAF 2-99
 722230   30.680   -88.250  KMOB  10  0 MOBILE/BATES FIELD               AL       67     0 FOUS TAF 2-99
@@ -825,7 +825,7 @@
 724290   39.900   -84.200  KDAY  10  0 DAYTON/JAMES M COX               OH       306    0 DiStefano 2-99 TAF 2-99
 724297   39.090   -84.420  KLUK  10  0 CINCINNATI/LUNKIN                OH       147    0 TAF 2-99
 724320   38.050   -87.530  KEVV  10  0 EVANSVILLE REGIONAL              IN       118    0 TAF 2-99
-724330   38.650   -88.970  SLO   12  0 SALEM                            IL       175    0 
+724330   38.650   -88.970  SLO   12  0 SALEM                            IL       175    0
 724336   37.780   -89.250  KMDH  00  0 CARBONDALE                       IL       9999   0
 724340   38.750   -90.370  KSTL  10  0 ST. LOUIS/LAMBERT                MO       172    0 TAF 2-99
 724345   38.660   -90.650  KSUS  10  0 SPIRIT OF ST LOUIS               MO       141    0 TAF 2-99
@@ -875,7 +875,7 @@
 724675   39.650  -106.920  KEGE  10  0 EAGLE CO. REGIONAL               CO       1993   0 TAF 2-99
 724676   39.220  -106.870  KASE  10  0 ASPEN/SARDY FIELD                CO       2382   0 TAF 2-99
 724677   38.530  -106.930  KGUC  10  0 GUNNISON CO. (AWOS)              UA       2339   0 FORMER TAF 2-99
-724680   38.700  -104.770  FCS   10  0 FORT CARSON                      CO       1789   0 
+724680   38.700  -104.770  FCS   10  0 FORT CARSON                      CO       1789   0
 724690   39.750  -104.870  DEN   12  0 DENVER/STAPLETON                 UA       1611   0 NA110 FOUS
 724698   40.170  -103.220  AKO   11  0 AKRON/WASHINGTON CO ASO          CO       1431   0 SPC 8-09
 724699   39.910  -105.120  KBJC  10  0 BROOMFIELD/JEFFCO                CO       1724   0 TAF 2-99
@@ -1304,7 +1304,7 @@
 760013   32.550  -116.970  MMTJ  10  0 TIJUANA INTL ARPT                MX       152    0 METAR/TAF 2-99
 760053   32.630  -115.240  MMML  10  0 MEXICALI INTL ARPT               MX       22     0 METAR/TAF 2-99
 760753   31.630  -106.430  MMCS  10  0 CIUDAD JUAREZ INTL               MX       1171   0 METAR/TAF 2-99
-761510   28.880  -118.300  ILS   0   0 ISLA GUADALUPE B.C.              --       6      0 
+761510   28.880  -118.300  ILS   0   0 ISLA GUADALUPE B.C.              --       6      0
 761600   29.070  -110.970  MMHO  10  0 HERMOSILLO INTL                  MX       211    0 METAR/TAF 2-99
 762253   28.700  -105.970  MMCU  12  0 CHIHUAHUA INTL ARPT              UA       1360   0 NA110 METAR 2-99
 762530   27.320  -112.300  MMCN  10  0 SANTA ROSALIA                    MX       75     0 METAR/TAF 2-99

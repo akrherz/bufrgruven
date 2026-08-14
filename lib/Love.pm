@@ -60,7 +60,7 @@ return %opts;
 
 sub stnlist {
 #----------------------------------------------------------------------------------
-#  This routine simply provides a listing of the available stations for a given 
+#  This routine simply provides a listing of the available stations for a given
 #  specified data set.
 #----------------------------------------------------------------------------------
 
@@ -85,7 +85,7 @@ my %Bgruven = %Start::Bgruven;
 
 
     my $table;
-    my $fname = "${dset}_bufrinfo.conf"; 
+    my $fname = "${dset}_bufrinfo.conf";
     open INFILE => "$Bgruven{GRUVEN}{DIRS}->{conf}/$fname" or &died("Read failed: $! - $fname");
     while (<INFILE>) {
         next if /^#/; next unless /\w/; chomp;
@@ -96,19 +96,19 @@ my %Bgruven = %Start::Bgruven;
 
     unless (open (INFILE,$table)) {$mesg = "You're not bufrgruven without the $dset station table:\n\n$table"; &died($mesg);}
 
-    @strs ? &Utils::modprint(0,5,104,1,1,"Here are the matching stations from the $dset BUFR station list:") : 
+    @strs ? &Utils::modprint(0,5,104,1,1,"Here are the matching stations from the $dset BUFR station list:") :
             &Utils::modprint(0,5,104,1,1,"You wanted to see it - Here's the entire $dset BUFR station list:");
-    
+
     &Utils::modprint(0,8,104,1,1,"Number    ID      Description                       Latitude   Longitude");
     &Utils::modprint(0,6,104,0,1,"----------------------------------------------------------------------------");
-    
+
     my $m;
-    while (<INFILE>) { 
+    while (<INFILE>) {
         chomp; next unless $_;
         $m=1;
         if (@strs) {$m=0; foreach my $str (@strs) {$m = 1 if $_ =~ /$str/i;}}
         next unless $m;
-        
+
         my @fields = split / +/ => $_; pop @fields;
         &Utils::modprint(0,8,104,0,1,sprintf("%-6s    %-6s  %-32s  %-8s   %-8s",$fields[0],$fields[3],(join ' ', @fields[5..$#fields]),$fields[1],$fields[2]));
    }
@@ -141,10 +141,10 @@ my %Bgruven = %Start::Bgruven;
             next unless /INFO/;
             s/=//g;
             $info{$dset} = $_ if s/INFO//g;
-        } close INFILE; 
+        } close INFILE;
     }
 
-    
+
     foreach my $ds (sort keys %info) {&Utils::modprint(0,9,144,0,1,sprintf("%-8s %s",$ds,$info{$ds}));}
    &Utils::modprint(0,6,104,0,1,"------------------------------------------------------------------------------------");
 
@@ -175,7 +175,7 @@ sub help {
     &Utils::modprint(0,7,114,2,1,"Bufrgruven Usage: % $exe [Options]");
 
     &Utils::modprint(0,7,114,1,1,"Where the option list consists of the following:");
-    
+
     &Utils::modprint(0,14,114,1,2,"Option       argument         Description");
 
     foreach my $opt (sort keys %opts) {
@@ -209,7 +209,7 @@ sub guide {
     &Utils::modprint(0,10,94,1,2,$mesg);
 
     &Utils::modprint(0,7,94,1,1,"UNLEASHING THE POWER (You know you want to):");
- 
+
     $mesg = "When processing BUFR files, the typical bufr_gruven.pl usage will be:\n\n".
 
             "  % bufr_gruven.pl --dset <data set> --stations <station list> [other options]\n\n".
@@ -439,7 +439,7 @@ sub guide {
     $mesg = "Passing --nobufkit turns off processing of BUFR files into BUFKIT format.";
     &Utils::modprint(0,14,94,1,2,$mesg);
 
-    
+
     &Utils::modprint(0,10,114,1,1,"Flag:  --noascii\n\n    Turns off generation of ASCII sounding files");
     &Utils::modprint(0,12,94,1,1,"Description:");
     $mesg = "Passing --noascii turns off processing of BUFR files into text files.";
@@ -527,7 +527,7 @@ sub guide {
             "displayed regardless of that you want.";
     &Utils::modprint(0,14,94,1,2,$mesg);
 
- 
+
     &Utils::modprint(0,10,114,1,1,"Flag:  --debug\n\n    Writes debug information to debug directory");
     &Utils::modprint(0,12,94,1,1,"Description:");
     $mesg = "Passing --debug will result in debugging files being written to the debug directory. ".
@@ -593,7 +593,7 @@ sub exit {
     my $err = shift; $err  = 0 unless $err;
     my $mesg =  sprintf ("There shall be no gruven for you at %s UTC",$date);
 
-    if ($err == -1) {$mesg = sprintf ("Let's get this BUFRgruven party started!");$err=0;} 
+    if ($err == -1) {$mesg = sprintf ("Let's get this BUFRgruven party started!");$err=0;}
     if ($err ==  0) {$mesg = sprintf ("Your BUFRgruven party is complete - %s UTC",$date);}
     if ($err ==  1) {$mesg = sprintf ("Your gruven party ended at %s UTC - Ya know, stuff just happens",$date);}
     if ($err == 99) {$mesg = sprintf ("BUFRgruven party terminated by Grumpy at %s UTC",$date);}

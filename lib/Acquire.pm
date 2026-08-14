@@ -74,31 +74,31 @@ sub stations {
     #  Get the list of BUFR files to download and process
     #
     #  For SREF stations it is possible that a subset of the member BUFR files will be
-    #  available when BUFRgruven is run.  Should a new SREF member become available 
+    #  available when BUFRgruven is run.  Should a new SREF member become available
     #  following the acquisition and processing of a SREF station then ALL available
-    #  members must be processed again. Otherwise, only those new members  will be 
+    #  members must be processed again. Otherwise, only those new members  will be
     #  included in the GEMPAK and BUFKIT files.
     #
     #  It is assumed that the user wants BUFKIT data to reflect all currently available
-    #  SREF members for a station. Thus, the default behaviour is to process ALL 
-    #  available members whenever a new member becomes available. If the user wishes 
+    #  SREF members for a station. Thus, the default behaviour is to process ALL
+    #  available members whenever a new member becomes available. If the user wishes
     #  to suspend processing until ALL members become available then see the comments
     #  at the bottom of the acquire subroutine.
     #
     %{$Bgruven{PROCESS}->{STATIONS}{process}} = ();
     %{$Bgruven{PROCESS}->{STATIONS}{acquire}} = ();
 
-    #  Make an initial loop through all the requested stations and model/members. Create 
+    #  Make an initial loop through all the requested stations and model/members. Create
     #  a list that will be check against to determine whether ALL the files for a station
-    #  and data set have been downloaded and processed previously. 
-    #  
+    #  and data set have been downloaded and processed previously.
+    #
 
-    #  There is a problem when the --monolithic flag is passed in that when the BUFR file was 
+    #  There is a problem when the --monolithic flag is passed in that when the BUFR file was
     #  downloaded previously, there is no way to know whether the stations requested represent
     #  a new or old list. If old, then they may have been already processed into BUFKIT files
     #  but that is an unknown at this point.  Regardless, the valid station loop below will
     #  be executed for each station with the same locfil as the result.
-    #  
+    #
     my %n2p=();
     foreach my $stnm (sort { $a <=> $b } keys %{$Bgruven{PROCESS}->{STATIONS}{valid}}) {
         $n2p{$stnm}=0;
@@ -109,9 +109,9 @@ sub stations {
         }
     }
 
-    #  Note that from the previous block, if $n2p{$stnm}=0 then all BUFR files for station 
+    #  Note that from the previous block, if $n2p{$stnm}=0 then all BUFR files for station
     #  and data set were downloaded and processed previously. If a single member or BUFR
-    #  file for a station/data set is missing then $n2p{$stnm}=1 and ALL the previously 
+    #  file for a station/data set is missing then $n2p{$stnm}=1 and ALL the previously
     #  downloaded and processed BUFR files for that station/data set will be scheduled
     #  for processing provided that any missing BUFR files are acquired.
     #
@@ -156,7 +156,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
             my %bufrs=();
 
             foreach my $mod (sort keys %{$Bgruven{PROCESS}->{STATIONS}{acquire}}) {
-                
+
                 #  Add some lines to eliminate the possibility that $mod is an empty string or consists
                 #  of all spaces.
                 #
@@ -198,9 +198,9 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
             #                  BUFR files are missing on the server, Bgruven will continue to process
             #                  the previously downloaded files even when no new BUFR files were acquired,
             #                  which just ain't right.
-            #                  
             #
-            
+            #
+
             my %missing =();
             @missmbrs   =();
             foreach my $mod (sort keys %{$Bgruven{PROCESS}->{STATIONS}{acquire}}) {
@@ -216,7 +216,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
             }
 
             %{$Bgruven{PROCESS}->{STATIONS}{acquire}} = %missing;
-            
+
             unless (%missing) {&Utils::modprint(0,9,96,1,2,"All requested BUFR files have arrived safely. Let's do it again!"); return 1;}
         }
 
@@ -231,13 +231,13 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
     #  This code should eliminate the processing of SREF stations when there is one or more
     #  members missing.
     #
-    #  Uncomment the following to change the behaviour such that SREF stations will not be 
+    #  Uncomment the following to change the behaviour such that SREF stations will not be
     #  processed until all members exist locally on the system.
     #
 #   foreach my $mod (sort keys %{$Bgruven{PROCESS}->{STATIONS}{process}}) {
 #       foreach my $stn (&Utils::rmdups(@missmbrs)) {delete $Bgruven{PROCESS}->{STATIONS}{process}{$mod}{$stn} if exists $Bgruven{PROCESS}->{STATIONS}{process}{$mod}{$stn};}
 #   }
-    $Bgruven{PROCESS}->{STATIONS}{newbufrs} ? &Utils::modprint(0,9,96,1,2,"Hey, hey, looky what I found, a BUFR!  I'm back in action!") 
+    $Bgruven{PROCESS}->{STATIONS}{newbufrs} ? &Utils::modprint(0,9,96,1,2,"Hey, hey, looky what I found, a BUFR!  I'm back in action!")
                                             : &Utils::modprint(0,9,96,1,2,"Sorry about your BUFR files. I'll do a better job next time!");
 
 
