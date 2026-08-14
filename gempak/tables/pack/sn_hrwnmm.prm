@@ -12,5 +12,5 @@ DTSW  -100.  100.      .01     86400.     DTLW
 DTLW  -100.  100.      .01      1.        CFRL
 CFRL   0.    101.      .01      1.        TKEL
 TKEL   0.     40.      .01      1.        IMXR
-IMXR   0.      1.      .00001 
+IMXR   0.      1.      .00001
 DTAR  -100.  100.      .01

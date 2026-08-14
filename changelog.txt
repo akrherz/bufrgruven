@@ -5,14 +5,14 @@
 	  and you need to download every ensemble member, unless you just want the ensemble mean.
 	  Additionally, processing all these data takes much longer than if you are requesting
 	  the profiles from a few stations.
- 
+
 #---------------------------------------------------------------------------------------------
 #
-  
+
   12 May 2021 - The "Out with the NMM-B, in with FV3" Release
 
-    * Added support for the hi-res window run of the FV3 (hrwfv3), which is replacing the 
-	  NMM-B as of ... yesterday.   
+    * Added support for the hi-res window run of the FV3 (hrwfv3), which is replacing the
+	  NMM-B as of ... yesterday.
 
     *  Decreased the DELAY parameter for the hi-res window ARW (hrwarw) BUFR files from 5 to 3 hours
 
@@ -27,10 +27,10 @@
     *  Change from HTTP to HTTPS as the protocol used when accessing the EMS family of
 	   servers.  Previous Bgruven installations are probably failing as I write.
 
-    *  Updated the GFS bufrinfo files to reflect the change in path on the NCEP 
-	   servers.  
+    *  Updated the GFS bufrinfo files to reflect the change in path on the NCEP
+	   servers.
 
-    *  Turned ON SREFMEAN bufr files for all NCEP servers, i.e., "--dset srefmean" 
+    *  Turned ON SREFMEAN bufr files for all NCEP servers, i.e., "--dset srefmean"
 
 #---------------------------------------------------------------------------------------------
 #
@@ -38,7 +38,7 @@
   30 December 2020 - The "This goes to 21!" Release
 
   *  Recompiled the routines used to create BUFKIT files with an updated version of
-     the NCEP BUFR libraries. The old libs assumed a year ending in "21" or later 
+     the NCEP BUFR libraries. The old libs assumed a year ending in "21" or later
      should be set to "1921" (or later), which seemed like a good idea when the
 	 code was previously updated to avoid the Y2K crisis.
 
@@ -51,7 +51,7 @@
   *  Cleaned up the bufrinfo.conf files of redundant SERVER entries
 
   Many thanks to Bruce Hebbard of NCEP/NCO/SDB for letting me know which source files
-  needed to be changed to correct the 2021 issue. 
+  needed to be changed to correct the 2021 issue.
 
 
 
@@ -67,7 +67,7 @@
 
   *  Finally corrected the STID for Dillon airport, MT (KLDN -> KDLN) in each station file.
      Thanks to Brett McDonald for annually bringing this issue to my attention.
-     
+
 
 #---------------------------------------------------------------------------------------------
 #
@@ -76,7 +76,7 @@
   *  Added fix for VVEL introduced with the FV3GFS going operational on 12 June 2019
 
      No change is needed for users processing "GFS" data. Update allows for processing of
-	 pre-FV3GFS version of the GFS BUFR files, which include OMEG, without any intervention 
+	 pre-FV3GFS version of the GFS BUFR files, which include OMEG, without any intervention
 	 by the user.
 
 	 Just Bgruven!
@@ -85,7 +85,7 @@
 #
   10 December 2018 - The HTTPS-VVEL-HRWAK Release - Final Take
 
-   *  Implemented workaround for certificate requirement on NCEP servers. This requirement 
+   *  Implemented workaround for certificate requirement on NCEP servers. This requirement
       may be in error and to be corrected soon, but a fix for the issue was added anyway.
 
 #---------------------------------------------------------------------------------------------
@@ -95,11 +95,11 @@
 
    *  Recompiled namsnd on a Centos 6 system to be compatible with systems running
       GNU C Library release version 2.12 or later.
-  
+
       The previous version of namsnd is included under gempak/bin/namsnd.rh5. If all
       else fails and updating your OS is not an option, you can rename namsnd.rh5 to
       namsnd, but you not have the OMEG values in the FV3 files (all 0's).
-      
+
 
 #---------------------------------------------------------------------------------------------
 #
@@ -109,17 +109,17 @@
 
    *  Removed support for HTTP downloads of BUFR files from the suite of NCEP servers
 
-   *  Modified and recompiled BUFR unpacking routines to support the vertical 
+   *  Modified and recompiled BUFR unpacking routines to support the vertical
       velocity fields (VVEL) from the FV3 BUFR files. All other BUFR datasets contain
       OMEG, but this was not good enough for the FV3, nooo!  Now VVEL is converted
       to OMEG for viewing in BUFKIT.
 
       Note:  The VVEL->OMEG magic is not available when running a i686 system (32-bit)
 
-   *  Changed the name of the "fv3gfs(x)" dataset to fv3(x) because nobody will get 
+   *  Changed the name of the "fv3gfs(x)" dataset to fv3(x) because nobody will get
       confused except those who fail to read this guidance.
 
-   *  Added support for the hires runs of the Alaska ARW & NMM, which required me to 
+   *  Added support for the hires runs of the Alaska ARW & NMM, which required me to
       place files sent to me by Jay Smith (Thanks Jay!) in the conf/ directory.
 
    *  Fixed a bug in the system curl call.
@@ -129,7 +129,7 @@
 
    Special Note:  The GFS & FV3 BUFR files are hourly through hour 121, then 3-hourly
                   through hour 181.  The default is to unpack the first 121 hours
-                  for BUFKIT. I believe that BUFKIT can now handle the irregular 
+                  for BUFKIT. I believe that BUFKIT can now handle the irregular
                   temporal frequency of the GFS & FV3 files (Thanks Ed!), so if you
                   want the whole kielbasa, change:
 
@@ -153,14 +153,14 @@
 
   24 July 2018 - The "Your HRRR Cup Runneth Over" Release
 
-   *  Added support for the upgraded HRRR & RAP BUFR datasets 
+   *  Added support for the upgraded HRRR & RAP BUFR datasets
 
    *  Added support for the HRRR Alaska region dataset
 
    *  Updated the station tables for ALL BUFR datasets, which doesn't seem like it
       should take very long but always does.
 
-   *  Tested Bgruven with the primary BUFR datasets to check whether they still 
+   *  Tested Bgruven with the primary BUFR datasets to check whether they still
       work as well as advertised.
 
    *  Changed advertising
@@ -171,21 +171,21 @@
 #
  3 May 2018 - The "FV3 Fever" Release
 
-   *  Added support for the parallel GFS, Aka, the FV3 global model. Also added the 
-      broken out (individual) FV3 BUFR files to the EMS family of servers. The FV3 
+   *  Added support for the parallel GFS, Aka, the FV3 global model. Also added the
+      broken out (individual) FV3 BUFR files to the EMS family of servers. The FV3
       bufr files contain "Old School" 3-hourly profiles out to 180 hours.
 
       For use with BUFRgruven:
 
         %  bufr_gruven.pl --dset fv3gfsx --stations <station list> [other flags and stuff]
 
-      Important: The FV3 BUFR files are experimental and posted to the servers 
+      Important: The FV3 BUFR files are experimental and posted to the servers
                  between 9 and 12 hours AFTER a cycle time. This  means the 12 UTC
                  BUFR files will not be available until after 21 UTC at the earliest.
 
                  So be patient and you will be rewarded, eventually.
 
-      
+
 
 
 #---------------------------------------------------------------------------------------------
@@ -219,16 +219,16 @@
     attention and working with me patiently on the phone for hours while I resolved
     the issue.
 
-  * Fixed a bug in Process.pm wherein the --noascii flag was not working. A thank you 
+  * Fixed a bug in Process.pm wherein the --noascii flag was not working. A thank you
     goes out to Shane Searcy (ITO/DMX) for bring this problem to my attention.
 
 
-  * Added support for the future "gfs" dataset (gfs_bufrinfo.conf) Note that 
+  * Added support for the future "gfs" dataset (gfs_bufrinfo.conf) Note that
     the location of the BUFR files on the remote servers may need to be changed.
 
 
 #---------------------------------------------------------------------------------------------
-# 
+#
  Sometime early April 2017
 
   *  Added support for hourly GFSX fields through 120 hours.  Note that the BUFR files
@@ -260,13 +260,13 @@
 
   * Updated ALL the station tables, whether it was needed or not
 
-  * Added support for the "nam3km" BUFR dataset, which does not operationally exist yet. 
+  * Added support for the "nam3km" BUFR dataset, which does not operationally exist yet.
     Just think ahead now so I won't have to think later.
 
- 
+
  15 December 2016
 
-  * Added support for the new operational 3km NAM conus nest (nam3km), which had been mislabeled 
+  * Added support for the new operational 3km NAM conus nest (nam3km), which had been mislabeled
     namx4km during the parallel run period.
 
   * Updated nam and nam3km station files in support of operational change in January
@@ -279,8 +279,8 @@
 
   * Added download of the parallel 12km NAM and 4km NAM nest BUFR files to the STRC family of servers
 
- 
- 28 August 2016 
+
+ 28 August 2016
 
   * Updated the location of the bufr files on the remote NCEP servers in the hrrr_bufrinfo.conf
 
@@ -288,13 +288,13 @@
     "Julian date" sounds more sophisticated.
 
 
-  8 July 2016 - The "Scientia ac Bgruven" Release 
+  8 July 2016 - The "Scientia ac Bgruven" Release
 
-  *  Added support for the HRRRx and RAPx BUFR files, just because I was asked nicely and 
+  *  Added support for the HRRRx and RAPx BUFR files, just because I was asked nicely and
      needed a sense of accomplishment in my life.  I feel better now.
 
-  *  Added the individual HRRRx and RAPx BUFR files to the STRC family of servers. The 
-     NOMADS Parallel server only has the monolithic versions of these data sets. You 
+  *  Added the individual HRRRx and RAPx BUFR files to the STRC family of servers. The
+     NOMADS Parallel server only has the monolithic versions of these data sets. You
      can thank me later.
 
   *  Update guidance and corrected a spelling error in the _bufrinfo.conf files.
@@ -308,24 +308,24 @@
 
 26 October 2015 - The "Cogito, ergo Bgruven" release
 
-  *  Updated the SREF configuration which includes changes to the sref_bufrinfo.conf, 
-     sref_stations.txt, and BUFR packing files. Note that the "descriptor" part of the 
+  *  Updated the SREF configuration which includes changes to the sref_bufrinfo.conf,
+     sref_stations.txt, and BUFR packing files. Note that the "descriptor" part of the
      sref MEMBER-KEYS in sref_bufrinfo.conf is likely to be incorrect as I could not
      locate updated information during my exhaustive 15 minute on-line search.
      I'll update once the information falls into my lap.
 
 28 September 2015
 
-  *  Updated the hrwnmm and hrwarw configuration files to reflect changes in the monolithic 
+  *  Updated the hrwnmm and hrwarw configuration files to reflect changes in the monolithic
      bufr file names on the NCEP servers. Then I fixed it again, and again until it was right.
 
 11 August 2015
 
-  *  Updated the operational BUFR station lists for the nam, nam4km, aknest (nam), hinest (nam), 
+  *  Updated the operational BUFR station lists for the nam, nam4km, aknest (nam), hinest (nam),
      gfs, rap, hrrr, sref, hrwarw and hrwnmm (nmb) data sets.
 
-  *  Updated all the <data set>_bufrinfo.conf files to include the NOMADS data servers. The 
-     NCEP FTP and HTTP servers are still listed in the files but are commented out.  You 
+  *  Updated all the <data set>_bufrinfo.conf files to include the NOMADS data servers. The
+     NCEP FTP and HTTP servers are still listed in the files but are commented out.  You
      may still use them until they go bye, bye.
 
   *  Removed support for the STRC server (which still exists) but replaced it with support

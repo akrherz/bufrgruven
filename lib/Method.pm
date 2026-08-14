@@ -22,7 +22,7 @@ use English;
 
 use if defined eval{require Time::HiRes;} >0,  "Time::HiRes" => qw(time);
 use File::stat;
-use vars qw (%Bgruven $mesg); 
+use vars qw (%Bgruven $mesg);
 
 use Files;
 
@@ -83,7 +83,7 @@ sub http {
         #  Try next file if not available
         #
         unless ($rsize = &available('http',$host,$rfile)) {&Utils::modprint(0,1,96,0,1,"- Not currently available"); next;}
-        
+
         #  Continue if available
         #
         &Utils::modprint(0,1,96,0,1,sprintf("- Available (%s mb)",&Utils::kbmb($rsize)));
@@ -115,18 +115,18 @@ sub http {
 
         #  The file exists so interrogate it
         #
-        my $sf = stat($lfile); 
+        my $sf = stat($lfile);
         my $lsize = $sf->size; $lsize =~ tr/,|\.//d; $lsize+=0;
 
-        unless ($lsize) { 
+        unless ($lsize) {
             &Utils::modprint(0,1,96,0,2,"- Zero Byte File", "File size on local system is zero bytes. Problem with remote host or local file system?");
             &Utils::rm($lfile); next;
         }
-        
+
         if ($lsize == $rsize) {
-            my $lsmb = &Utils::kbmb($lsize); 
+            my $lsmb = &Utils::kbmb($lsize);
             my $mbps = $lsmb*100/$secs; $mbps = sprintf("%.2f",$mbps*0.01);
-            my $sm = $Bgruven{GRUVEN}->{INFO}{sm}[int rand @{$Bgruven{GRUVEN}->{INFO}{sm}}]; 
+            my $sm = $Bgruven{GRUVEN}->{INFO}{sm}[int rand @{$Bgruven{GRUVEN}->{INFO}{sm}}];
             &Utils::modprint(0,1,96,0,2,sprintf("- %-23s ($mbps mb/s)","\"$sm\""));
         } else {
             my $lsmb = &Utils::kbmb($lsize);
@@ -137,7 +137,7 @@ sub http {
 
         ($lfile ne $ufile) ? push @afiles => &Files::unpack($lfile) : push @afiles => $ufile;
     }
-    
+
 return @afiles;
 }
 
@@ -233,7 +233,7 @@ sub https {
         my $sf = stat($lfile);
         my $lsize = $sf->size; $lsize =~ tr/,|\.//d; $lsize+=0;
 
-        unless ($lsize) { 
+        unless ($lsize) {
             &Utils::modprint(0,1,96,0,2,"- Zero Byte File", "File size on local system is zero bytes. Problem with remote host or local file system?");
             &Utils::rm($lfile); next;
         }
@@ -262,7 +262,7 @@ return @afiles;
 sub copy {
 #----------------------------------------------------------------------------------
 #  This routine copies the requested files to the local system via the scp or cp
-#  commands.  The unix "copy" command will be used if the $host is 'LOCAL'; 
+#  commands.  The unix "copy" command will be used if the $host is 'LOCAL';
 #  otherwise the SSH secure copy (SCP) command will be used.
 #----------------------------------------------------------------------------------
 #
@@ -310,7 +310,7 @@ sub copy {
             next;
         }
         ($lfile ne $ufile) ? push @afiles => &Files::unpack($lfile) : push @afiles => $ufile;
-    }    
+    }
 
 
 return @afiles;
@@ -662,7 +662,7 @@ use if defined eval{require Time::HiRes;} >0,  "Time::HiRes" => qw(time);
 
         my $locfile = &Utils::popit($file);
         my $remfile = "$remdir/$locfile";
-        
+
         $mesg = "Transfering File: $locfile";
         $mesg = sprintf("%-${len}s -",$mesg);
         &Utils::modprint(5,13,144,0,0,$mesg);
@@ -802,37 +802,37 @@ sub CurlExitCodes {
 
         if (/^0$/)  {$mesg =  '';}
         if (/^1$/)  {$mesg =  'Unsupported protocol';}
-        if (/^2$/)  {$mesg =  'Failed to initialize';}                                                              
-        if (/^3$/)  {$mesg =  'URL format problem. The syntax was not correct';}                                    
-        if (/^4$/)  {$mesg =  'URL user format error';}                                                             
-        if (/^5$/)  {$mesg =  'Could not resolve proxy';}                                                           
-        if (/^6$/)  {$mesg =  'Could not resolve host';}                                                            
-        if (/^7$/)  {$mesg =  'Failed to connect to host';}                                                         
-        if (/^8$/)  {$mesg =  'FTP weird server reply';}                                                            
-        if (/^9$/)  {$mesg =  'FTP access denied';}                                                                 
-        if (/^10$/) {$mesg =  'FTP user/password incorrect';}                                                       
-        if (/^11$/) {$mesg =  'FTP weird PASS reply';}                                                              
-        if (/^12$/) {$mesg =  'FTP weird USER reply';}                                                              
-        if (/^13$/) {$mesg =  'FTP weird PASV reply';}                                                              
-        if (/^14$/) {$mesg =  'FTP weird line 227 format';}                                                         
-        if (/^15$/) {$mesg =  'FTP can not get host IP';}                                                           
-        if (/^16$/) {$mesg =  'FTP can not reconnect';}                                                             
-        if (/^17$/) {$mesg =  'FTP could not set binary';}                                                          
-        if (/^18$/) {$mesg =  'Only a part of the file was transfered';}                                            
-        if (/^19$/) {$mesg =  'FTP could not download/access the given file';}                                      
-        if (/^20$/) {$mesg =  'FTP write error';}                                                                   
-        if (/^21$/) {$mesg =  'FTP quote error';}                                                                   
-        if (/^22$/) {$mesg =  'Requested file was not found';}                                                      
-        if (/^23$/) {$mesg =  'Local write error';}                                                                 
-        if (/^24$/) {$mesg =  'User name badly specified';}                                                         
-        if (/^25$/) {$mesg =  'FTP could not STOR file';}                                                           
-        if (/^26$/) {$mesg =  'Read error';}                                                                        
-        if (/^27$/) {$mesg =  'Out of memory';}                                                                     
-        if (/^28$/) {$mesg =  'Operation timeout';}                                                                 
-        if (/^29$/) {$mesg =  'FTP could not set ASCII';}                                                           
-        if (/^30$/) {$mesg =  'FTP PORT failed';}                                                                   
-        if (/^31$/) {$mesg =  'FTP could not use REST';}                                                            
-        if (/^32$/) {$mesg =  'FTP could not use SIZE';}                                                            
+        if (/^2$/)  {$mesg =  'Failed to initialize';}
+        if (/^3$/)  {$mesg =  'URL format problem. The syntax was not correct';}
+        if (/^4$/)  {$mesg =  'URL user format error';}
+        if (/^5$/)  {$mesg =  'Could not resolve proxy';}
+        if (/^6$/)  {$mesg =  'Could not resolve host';}
+        if (/^7$/)  {$mesg =  'Failed to connect to host';}
+        if (/^8$/)  {$mesg =  'FTP weird server reply';}
+        if (/^9$/)  {$mesg =  'FTP access denied';}
+        if (/^10$/) {$mesg =  'FTP user/password incorrect';}
+        if (/^11$/) {$mesg =  'FTP weird PASS reply';}
+        if (/^12$/) {$mesg =  'FTP weird USER reply';}
+        if (/^13$/) {$mesg =  'FTP weird PASV reply';}
+        if (/^14$/) {$mesg =  'FTP weird line 227 format';}
+        if (/^15$/) {$mesg =  'FTP can not get host IP';}
+        if (/^16$/) {$mesg =  'FTP can not reconnect';}
+        if (/^17$/) {$mesg =  'FTP could not set binary';}
+        if (/^18$/) {$mesg =  'Only a part of the file was transfered';}
+        if (/^19$/) {$mesg =  'FTP could not download/access the given file';}
+        if (/^20$/) {$mesg =  'FTP write error';}
+        if (/^21$/) {$mesg =  'FTP quote error';}
+        if (/^22$/) {$mesg =  'Requested file was not found';}
+        if (/^23$/) {$mesg =  'Local write error';}
+        if (/^24$/) {$mesg =  'User name badly specified';}
+        if (/^25$/) {$mesg =  'FTP could not STOR file';}
+        if (/^26$/) {$mesg =  'Read error';}
+        if (/^27$/) {$mesg =  'Out of memory';}
+        if (/^28$/) {$mesg =  'Operation timeout';}
+        if (/^29$/) {$mesg =  'FTP could not set ASCII';}
+        if (/^30$/) {$mesg =  'FTP PORT failed';}
+        if (/^31$/) {$mesg =  'FTP could not use REST';}
+        if (/^32$/) {$mesg =  'FTP could not use SIZE';}
         if (/^33$/) {$mesg =  'HTTP range error';}
         if (/^34$/) {$mesg =  'HTTP post error';}
         if (/^35$/) {$mesg =  'SSL handshaking failed';}

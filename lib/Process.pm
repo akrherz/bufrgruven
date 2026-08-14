@@ -20,7 +20,7 @@ use English;
 
 
 use if defined eval{require Time::HiRes;} >0,  "Time::HiRes" => qw(time);
-use vars qw (%Bgruven $mesg); 
+use vars qw (%Bgruven $mesg);
 use Utils;
 
 sub bufr {
@@ -54,7 +54,7 @@ sub  process_bufr {
 #    Processes the BUFR files into GEMPAK sounding files
 #----------------------------------------------------------------------------------
 #
-    my ($gems, $ascs) = &bufr2gem; 
+    my ($gems, $ascs) = &bufr2gem;
 
     @{$Bgruven{DATA}->{GEMPAK}} = @$gems;
     @{$Bgruven{DATA}->{ASCII}}  = @$ascs;
@@ -75,7 +75,7 @@ sub process_bufkit {
     @{$Bgruven{DATA}->{BUFKITP}} = ();
 
     if ($Bgruven{GRUVEN}->{OPTS}{nobufkit}) {&Utils::modprint(6,9,96,1,2,"No BUFKIT for You! Bufkit file processing turned OFF");return 1;}
-        
+
     my $bufkts = &gem2bfkt;
 
     unless (@$bufkts) {$mesg = "You had a problem creating BUFKIT files!"; return;}
@@ -107,24 +107,24 @@ sub bufr2gem {
     my %bufrs = %{$Bgruven{PROCESS}->{STATIONS}{process}}; return (\@gemfls, \@ascfls) unless %bufrs;
 
 
-    #  If the --monolithic flag was passed, then this is where the logic becomes difficult because the 
-    #  GEMPAK files do not need to be recreated if the BUFR file was downloaded and processed previously. 
-    #  All the BUFR information already exists in the GEMPAK file. However, the names of the GEMPAK files 
-    #  are needed for processing into BUFKIT and those are obtained below so we must to through part of 
-    #  the GEMPAK conversion. Also, the monolithic BUFR file needs only to be processed once and not 
+    #  If the --monolithic flag was passed, then this is where the logic becomes difficult because the
+    #  GEMPAK files do not need to be recreated if the BUFR file was downloaded and processed previously.
+    #  All the BUFR information already exists in the GEMPAK file. However, the names of the GEMPAK files
+    #  are needed for processing into BUFKIT and those are obtained below so we must to through part of
+    #  the GEMPAK conversion. Also, the monolithic BUFR file needs only to be processed once and not
     #  multiple times as for the individual files.
     #
-    if ($Bgruven{GRUVEN}->{OPTS}{mono}) { 
+    if ($Bgruven{GRUVEN}->{OPTS}{mono}) {
        my %mono=();
        foreach my $mod (keys %bufrs) {foreach my $stn (keys %{$bufrs{$mod}}) {$mono{$mod}{mono} = $bufrs{$mod}{$stn};}}
        %bufrs = %mono;
     }
-    
+
 
     &Utils::modprint(0,2,96,1,1,sprintf("%5s  Creating GEMPAK sounding files from BUFR files",shift @{$Bgruven{GRUVEN}->{INFO}{rn}}));
 
 
-    #  Create the gempak and ascii directories if necessary and delete any files in 
+    #  Create the gempak and ascii directories if necessary and delete any files in
     #  the local working directory that are greater than 2 days old.
     #
     my @dirs = qw(gemdir ascdir);
@@ -135,7 +135,7 @@ sub bufr2gem {
         closedir DIR;
     }
 
-    
+
     #  Did the use want ascii profiles genarted?
     #
     my $ascii = $Bgruven{GRUVEN}->{OPTS}{noascii} ? 0 : @{$Bgruven{BINFO}->{EXPORT}{ASCII}} ? 1 : 1;
@@ -144,7 +144,7 @@ sub bufr2gem {
     # Turn off Ascii file creation with monolithic BUFR files
     #
     $ascii = 0 if $Bgruven{GRUVEN}->{OPTS}{mono};
-    
+
 
     #  Get the list of placeholders for the filenames
     #
@@ -161,7 +161,7 @@ sub bufr2gem {
     $ENV{GEMPARM}= "$ENV{NAWIPS}/parm";
     $ENV{GEMTBL} = "$ENV{NAWIPS}/tables";
 
-  
+
     my $exe = "$ENV{GEMEXE}/namsnd";
     # Now check for missing system libraries.
     #
@@ -177,7 +177,7 @@ sub bufr2gem {
     #
     chdir $Bgruven{GRUVEN}->{DIRS}{gemdir};
 
-    
+
     #  Begin the processing of the BUFR files with namsnd. Any ascii files will be moved following
     #  each BUFR file
     #
@@ -198,8 +198,8 @@ sub bufr2gem {
         for ($gemsfc, $gemsnd, $gemaux) {$_ = &Utils::fillit($_,@phs); $_ = "$Bgruven{GRUVEN}->{DIRS}{gemdir}/$_";}
 
 
-        #  If processing a monolithic BUFR file then check whether the GEMPAK already exists, which 
-        #  indicates that the file was processed previously and thus does not need to be processed again. 
+        #  If processing a monolithic BUFR file then check whether the GEMPAK already exists, which
+        #  indicates that the file was processed previously and thus does not need to be processed again.
         #  The exception is when the --forcep flag is passed.
         #
         if ($Bgruven{GRUVEN}->{OPTS}{mono}) {
@@ -216,7 +216,7 @@ sub bufr2gem {
             }
         }
 
-                
+
         #  Get the model family from the model name as this will be used to identify the packing files to use.
         #  This could be a problem should the underscore not be included in the name.
         #
@@ -239,11 +239,11 @@ sub bufr2gem {
         while (my ($stnm,$bufr) = each %{$bufrs{$mod}}) {
 
             my $stid = $ascii ? lc substr $Bgruven{PROCESS}->{STATIONS}{table}{numtoid}{$stnm},1,3 : 'none' ;
- 
+
             my $log = "$Bgruven{GRUVEN}->{DIRS}{logs}/${mod}_gempak_namsnd.log"; &Utils::rm($log);
             &Utils::rm($_) for ("prof.$stid", "${mod}_namsnd.in", 'gemglb.nts', 'last.nts');
 
-        
+
             #  Write the necessary information to the namsnd.in file
             #
             unless (open (GEMFILE,">${mod}_namsnd.in")) {&Utils::modprint(6,5,96,1,1,"You're not BUFRgruven in bufr2gem - Unable to open ${mod}_namsnd.in for writing!"); return (\@gemfls, \@ascfls);}
@@ -254,9 +254,9 @@ sub bufr2gem {
             unless (-e "$ENV{GEMTBL}/pack/$snpack" and -e "$ENV{GEMTBL}/pack/$sfpack") {
                 $mesg = "You will have to locate the whereabouts of the necessary GEMPAK packing files for this data set, because I simply ".
                         "can not continue without them.  In case you are wondering they look like:\n\n".
-                        
+
                         "    $ENV{GEMTBL}/pack/$snpack\n".
-                        "And\n".         
+                        "And\n".
                         "    $ENV{GEMTBL}/pack/$sfpack\n".
                         "And\n".
                         "    $ENV{GEMTBL}/pack/${sfpack}_aux\n\n".
@@ -280,12 +280,12 @@ sub bufr2gem {
             print GEMFILE  "list\nrun\n \nexit\n"; close GEMFILE;
 
             if (&Utils::execute("$exe < ${mod}_namsnd.in", $log)) {
-    
+
                 my $rc = $? >> 8;
-    
+
                 my @lines=();
                 open LOG => "$log"; @lines = <LOG>; close LOG;
-    
+
                 if ( ($? == 2) or (grep /Ctrl-C/i,@lines) ) {
                     &Utils::modprint(0,0,24,0,1,"Interrupted");
                     &Love::exit(99);
@@ -334,7 +334,7 @@ sub bufr2gem {
         foreach ($gemsfc, $gemaux, $gemsnd) {next unless -s $_; push @gemfls => $_;}
 
         push @mbrs => $me if $ens;
-    
+
     }  #  Foreach model loop
 
     my $str = join ' ' => @mbrs;
@@ -348,7 +348,7 @@ return (\@gemfls, \@ascfls);
 sub gem2bfkt {
 #----------------------------------------------------------------------------------
 #  This routine converts GEMPAK sounding files to BUFKIT using a very messy
-#  algorithm that needs to be clean up by somebody with time. It returns a list 
+#  algorithm that needs to be clean up by somebody with time. It returns a list
 #  of bufkit files.
 #----------------------------------------------------------------------------------
 #
@@ -424,7 +424,7 @@ sub gem2bfkt {
 
     #  Create the working directory
     #
-    my $work = "$bfkdir/work"; 
+    my $work = "$bfkdir/work";
     &Utils::mkdir($work); chdir $work;
 
 
@@ -434,7 +434,7 @@ sub gem2bfkt {
     #
 
     #-----------------------------------------------------------------------------------
-    #  Begin primary loop over each of the models, which there should be only 
+    #  Begin primary loop over each of the models, which there should be only
     #  one unless a ensemble data set was requested.
     #
     foreach my $mod (keys %{$Bgruven{PROCESS}->{STATIONS}{process}}) {
@@ -450,16 +450,16 @@ sub gem2bfkt {
         my $mwork = "$work/$mod"; &Utils::rm($mwork);
         &Utils::mkdir($mwork); chdir $mwork;
 
-        
+
         my @stnms   = keys %{$Bgruven{PROCESS}->{STATIONS}{process}{$mod}};
 
         $_ =~ s/ //g foreach @stnms;
         @stnms = &Utils::rmdups(@stnms);
         next unless @stnms;
-        
+
         $nstns   = @stnms;  #  Override configuration file value
 
-        my $bfkf  = $bufkit;  
+        my $bfkf  = $bufkit;
         my $bfkfp = $bufkitp;
 
         #  Populate the date, time, and model placeholders in LOCFIL
@@ -500,11 +500,11 @@ sub gem2bfkt {
         print GEMFILE "exit\n";
         close GEMFILE;
 
-   
+
         #  Run SNLIST to generate ascii text file containing the sounding information.
         #
         my $output = `$gembin/snlist  < $snlist`;
-         
+
         if ($Bgruven{GRUVEN}->{OPTS}{debug}) {
             print DEBUGFL "\n\n  STEP I",
                           "\n\n  Input to SNLIST - $snlist:\n\n",`cat $snlist`,
@@ -537,7 +537,7 @@ sub gem2bfkt {
                 return \@bufkits;
             }
             system "cp $ENV{GEMTBL}/pack/$sfprmf .";
- 
+
             open GEMFILE => ">>$sfcfil";
             print GEMFILE "SFOUTF = ",$sfcout,"\n",
                           "SFPRMF = ./$sfprmf\n",
@@ -598,29 +598,29 @@ sub gem2bfkt {
                               "list\n"  ,
                               "run \n"  ,
                               "    \n"  ,
-        
+
                               "SFPARM = uwnd;vwnd;r01m;bfgr;t2ms;q2ms\n",
                               "OUTPUT = f/list02\.out\n",
                               "list\n"  ,
                               "run \n"  ,
                               "    \n"  ,
-        
+
                               "SFFILE = $gemsfcal\n",
                               "SFPARM = lcld;mcld;hcld;snra;wxts;wxtp;wxtz;wxtr\n",
                               "OUTPUT = f/list03\.out\n",
                               "list\n"  ,
                               "run \n"  ,
                               "    \n"  ,
-        
+
                               "SFPARM = ustm;vstm;hlcy;sllh;wsym;cdbp;vsbk;td2m\n",
                               "OUTPUT = f/list04\.out\n",
                               "list\n"  ,
                               "run \n"  ,
                               "    \n"  ,
                               "exit\n"  ;
-    
+
                 close GEMFILE;
-    
+
                 my $output = `$gembin/sflist < $sflist`;
 
                 if ($Bgruven{GRUVEN}->{OPTS}{debug}) {
@@ -654,7 +654,7 @@ sub gem2bfkt {
                               "    \n"  ,
                               "exit\n"  ;
                 close GEMFILE;
-    
+
                 $output = `$gembin/sfedit < $sfedit`;
 
                 if ($Bgruven{GRUVEN}->{OPTS}{debug}) {
@@ -770,11 +770,11 @@ sub gem2bfkt {
 
             my $file = &Utils::popit($bfkt);
             unless (-s $bfkt) {&Utils::modprint(6,9,144,1,1,"Problem creating BUFKIT file - $file");next;}
-            
+
             $wkbfkts{$stnm}{$mod} = "$mwork/$bfkt";
         }
 
- 
+
     }  #  Foreach Model
 
     chdir $work;
@@ -799,7 +799,7 @@ sub gem2bfkt {
             s/MOD/$Bgruven{BINFO}->{DSET}{model}[0]/g;
         }
 
-        open OBFKT => ">$bfkt"; 
+        open OBFKT => ">$bfkt";
         foreach my $mod (@order) {
 
             next unless $wkbfkts{$stnm}{$mod};
@@ -831,7 +831,7 @@ sub gem2bfkt {
                 my $zpfl  = $bfkt;
                 my $zpflp = $bfktp;
                 for ($zpfl, $zpflp) {s/\.buf$/\.buz/g;&Utils::rm($_);}
-               
+
                 if ($comp{zip} ? system "$comp{zip} -q -j $zpfl $bfkt" : system "$comp{gzip} -q -c $bfkt > $zpfl") {
                    &Utils::modprint(6,11,144,1,1,sprintf("Oops - Gzip'n %s -> %s failed",&Utils::popit($bfkt),&Utils::popit($zpfl)));
                    &Utils::rm($zpfl);
@@ -844,7 +844,7 @@ sub gem2bfkt {
                 my $ver = $ENV{VERBOSE}; $ENV{VERBOSE} = 1;
                 $mesg = "Could not find either \"zip\" or \"gzip\" routines on your system, which are to compress ".
                     "your BUFKIT files.  Since these routines are available with most Linux distributions ".
-                    "it is likely that were left out during the OS install."; 
+                    "it is likely that were left out during the OS install.";
                 &Utils::modprint(3,11,96,2,1,$mesg);
                 $ENV{VERBOSE} = $ver;
                 return;
@@ -863,7 +863,7 @@ sub gem2bfkt {
         push @bufkits => $bfktp if $Bgruven{GRUVEN}->{OPTS}{prepend};
 
     }
-        
+
     my $dw = &Utils::popit($work);
     system "mv $work $Bgruven{GRUVEN}->{DIRS}{debug}/$dw.debug.$$" if $Bgruven{GRUVEN}->{OPTS}{debug};
 
@@ -883,4 +883,4 @@ sub gem2bfkt {
 #
 return \@bufkits;
 }
-                                                                              
+

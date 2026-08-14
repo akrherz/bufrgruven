@@ -20,7 +20,7 @@ use English;
 
 
 use if defined eval{require Time::HiRes;} >0,  "Time::HiRes" => qw(time);
-use vars qw (%Bgruven $mesg); 
+use vars qw (%Bgruven $mesg);
 use Utils;
 
 
@@ -86,7 +86,7 @@ sub export {
             if (/copy/i)  {&Method::put_copy($rdir,$type);next;}
         }
     }
-    
+
     my $ct = gmtime();
     &Utils::modprint(0,9,144,1,2,"May all the fantasies of your $type files be realized");
 

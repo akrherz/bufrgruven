@@ -46,7 +46,7 @@ sub rmdups {
     return @list unless @list;
 
     my %temp = ();
-    @list = grep ++$temp{$_} < 2 => @list; 
+    @list = grep ++$temp{$_} < 2 => @list;
 
 return @list;
 }
@@ -220,8 +220,8 @@ sub fillit {
    my $dd     = substr $yyyymmdd,6,2;
 
 
-   #  Note that the order is important here. For example, "DDD" must 
-   #  come before "DD".  
+   #  Note that the order is important here. For example, "DDD" must
+   #  come before "DD".
 
 
    for ( $str ) {
@@ -389,7 +389,7 @@ sub prnt_brec {
     while (my ($key, $value) = each %{$brec->stations}) {
         &modprint(0,6,84,0,1,sprintf("STATIONS        : %-4s (%s)",uc $value, $key));
     }
-    
+
     &modprint(0,6,84,0,1,sprintf("INVALID STATIONS: %s",join(', ',@{$brec->invalstn}))) if @{$brec->invalstn};
 
     &modprint(0,6,84,1,1,sprintf("ACQUIRE METHODS : %s",join(' ',@{$brec->methods})));
@@ -399,14 +399,14 @@ sub prnt_brec {
     foreach my $dir (@{$brec->bfdirs}) {&modprint(0,6,84,0,1,sprintf("EXPORT BUFKIT   : %s",$dir));}
     foreach my $dir (@{$brec->bfdirs}) {&modprint(0,6,84,0,1,sprintf("EXPORT GEMPAK   : %s",$dir));}
     foreach my $dir (@{$brec->bfdirs}) {&modprint(0,6,84,0,1,sprintf("EXPORT ASCII    : %s",$dir));}
-    
+
     foreach (@{$brec->methods}) {
         if (/ftp/i) {
             while (my ($key, $value) = each %{$brec->ftpservers}) {
                 &modprint(0,6,144,0,1,sprintf("FTP SERVER      : %-6s %s",$key,$value));
             }
         }
-       
+
         if (/https/i) {
             while (my ($key, $value) = each %{$brec->htpservers}) {
                 &modprint(0,6,144,0,1,sprintf("HTTPS SERVER     : %-6s %s",$key,$value));

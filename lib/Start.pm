@@ -36,7 +36,7 @@ sub gruven {
 
     #  Complete the preliminary initialization
     #
-    &initialize or &Love::died($mesg); 
+    &initialize or &Love::died($mesg);
 
 
     #  Process the command-line options
@@ -44,7 +44,7 @@ sub gruven {
     &options    or &Love::died($mesg);
 
 
-    #  Assimilate the options and default configuration into the 
+    #  Assimilate the options and default configuration into the
     #  the primary Bgruven hash.
     #
     &configure  or &Love::died($mesg);
@@ -56,7 +56,7 @@ return %Bgruven;
 
 sub initialize {
 #----------------------------------------------------------------------------------
-#   This routine reads the bufrgruven.conf file and completes the preliminary 
+#   This routine reads the bufrgruven.conf file and completes the preliminary
 #   initialization of the primary hash.
 #----------------------------------------------------------------------------------
 #
@@ -79,7 +79,7 @@ sub initialize {
 
     @{$bgruven{INFO}{sm}} = ("Yatzee!", "Bingo!", "Hello, BUFR!", "Dyn-o-mite!", "Hasta la vista, BUFR!", "TaDa!", "Excellent!", "You Bgruven!",
                              "Please Bgruven again!", "As you wish!", "Holy BUFR Batman!", "Schwing!", "That's hot!", "Oh Yeah!",
-                             "Who's your daddy!", "It's Bgruv'n time!", "Heeeeeeeere's BUFR!", "Live Long and BUFR!", 
+                             "Who's your daddy!", "It's Bgruv'n time!", "Heeeeeeeere's BUFR!", "Live Long and BUFR!",
                              'Who loves ya, baby!', "Da BUFR! Da BUFR!", "Cinderella story!", "Nailed it!", "These go to 11!",
                              'Show me the BUFR!', "It\'s a BUFR!", "Victory is ours!");
 
@@ -99,7 +99,7 @@ sub initialize {
     $bgruven{DIRS}{conf} = "$Bgruven{HOME}/conf";
     unless (-e $bgruven{DIRS}{conf}) {
         $mesg = "It appears there is a problem with your BUFRgruven as there is no \"conf\" ".
-                "directory at the under $Bgruven{HOME}."; return; 
+                "directory at the under $Bgruven{HOME}."; return;
     }
 
 
@@ -142,7 +142,7 @@ sub initialize {
 
 
     #  Define the directory where all the data processing will initially take place. Note
-    #  that this location is relative to the Bgruven home directory.  If you wish to change 
+    #  that this location is relative to the Bgruven home directory.  If you wish to change
     #  this location from the default "metdat" then this is the spot.
     #
     $bgruven{DIRS}{debug}  = "$Bgruven{HOME}/debug";
@@ -276,17 +276,17 @@ use Getopt::Long qw(:config pass_through);
     }
 
 
-    #  If the user requests an alternate location for the metdat directory then 
+    #  If the user requests an alternate location for the metdat directory then
     #  override the default location.
     #
     if ($gopts{metdat}) {
-        #  Check whether the requested directory exists and is writable 
+        #  Check whether the requested directory exists and is writable
         #
         unless (-d $gopts{metdat}) {$mesg = "The requested metdat directory (--metdat $gopts{metdat}) does not exist.\n\n  Go find it and don't return to me until you do!"; return;}
         unless (-w $gopts{metdat}) {$mesg = "The requested metdat directory (--metdat $gopts{metdat}) is not writable.\n\n  Fix the problem and then return to me with open arms!"; return;}
-    
+
         $Bgruven{GRUVEN}->{DIRS}{metdat} = $gopts{metdat}; &Utils::mkdir($gopts{metdat});
-    
+
         # Define and create the directories needed for bufr data processing
         #
         $Bgruven{GRUVEN}->{DIRS}{bufdir} = "$gopts{metdat}/bufr";
@@ -300,7 +300,7 @@ use Getopt::Long qw(:config pass_through);
     #  the user passes the --date or --cycle flag the --prepend option is automatically
     #  turned ON.
     #
-        
+
     if ($gopts{rdate}) {
         if (length $gopts{rdate} == 6) {
             $gopts{rdate} = substr($gopts{rdate},0,2) < 50 ? "20$gopts{rdate}" : "19$gopts{rdate}"; chomp $gopts{rdate};
@@ -398,7 +398,7 @@ sub chk_args {
 
 return $fail ? 0 : 1;
 }
-    
+
 
 sub configure {
 #----------------------------------------------------------------------------------
@@ -414,7 +414,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
     #
     my %proc=(); %{$proc{$_}}=() for ('DATA', 'DATE', 'SOURCES', 'STATIONS');
 
-    
+
     #  Read the contents of the bufrinfo.conf file for the requested data set.
     #
     my $dset = $Bgruven{GRUVEN}->{OPTS}{dset};
@@ -426,7 +426,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
     #
     unless ($Bgruven{BINFO}->{DSET}{locfil}) {my $f = $Bgruven{BINFO}->{DSET}{fname} ; $mesg = "It appears that \"LOCFIL\" is not defined in $f"; return;}
 
-   
+
     #  Was the --monolithic flag passed?  If so then reset locfil to YYYYMMDDCC.MOD.tCCz.class1.bufr
     #
     $Bgruven{BINFO}->{DSET}{locfil} = $Bgruven{GRUVEN}->{OPTS}{mono} if $Bgruven{GRUVEN}->{OPTS}{mono};
@@ -556,7 +556,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
     #
     my @phs = ("$proc{DATE}{yyyymmdd}", "$proc{DATE}{acycle}", "$Bgruven{BINFO}->{DSET}{dset}", @{$Bgruven{BINFO}->{DSET}{model}} > 1 ? 'MOD' : "$Bgruven{BINFO}->{DSET}{model}[0]");
 
-    #  This is a hack, and I don't like hacks!  Unfortunately, there is no easy alternative to account for 
+    #  This is a hack, and I don't like hacks!  Unfortunately, there is no easy alternative to account for
     #  the GFS (V14) -> FV3GFS change on 12 June 2019. This is necessary due to the use of VVEL rather than
     #  OMEG in the BUFR files, which requires different gempak packing tables.
     #
@@ -571,7 +571,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
     #  The methods contained in the @{$Bgruven{GRUVEN}->{OPTS}{methods}} list control which methods of
     #  acquisition are to be used to download the BUFR files.  If no method is explicitly specified on
     #  the command line then the list defaults the configuration settings defined on the options
-    #  subroutine, probably https, http and ftp. 
+    #  subroutine, probably https, http and ftp.
     #
     #  If a user does specify a method on the command line then that method is used to populate
     #  the @{$Bgruven{GRUVEN}->{OPTS}{methods}} list. Additionally, the options/arguments are
@@ -581,7 +581,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
     foreach my $meth (@{$Bgruven{GRUVEN}->{OPTS}{methods}}) {
 
         my $m = lc $meth; $m = "--$m"; $meth = uc $meth;  #  Both meth and host are UC in the SOURCES hash
-    
+
         if ($Bgruven{GRUVEN}->{OPTS}{lc $meth}) {  #  User passed command line flag for the method of acquisition AND included arguments (not just --http)
 
             $Bgruven{GRUVEN}->{OPTS}{lc $meth} =~ s/:+/:/g;  #  reduce number of ":"s to one
@@ -640,7 +640,7 @@ use Data::Dumper; $Data::Dumper::Sortkeys = 1;
         #  Open the debug file if necessary
         #
         open DEBUGFL => ">$Bgruven{GRUVEN}->{DIRS}{debug}/start.debug.$$";
-        my $dd = Dumper \%Bgruven; $dd =~ s/    / /mg;print DEBUGFL $dd; 
+        my $dd = Dumper \%Bgruven; $dd =~ s/    / /mg;print DEBUGFL $dd;
         close DEBUGFL;
     }
 
@@ -773,7 +773,7 @@ sub read_bconf {
 
 
     #  I don't like putting this block here as I was hoping to avoid the use of
-    #  command-line flags in this routine but it saves time when adding the 
+    #  command-line flags in this routine but it saves time when adding the
     #  --monolithic option to the code.
     #
     foreach my $meth (keys %methods) {

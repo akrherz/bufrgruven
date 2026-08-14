@@ -58,7 +58,7 @@ return $secs;
 
 sub julian {
 #----------------------------------------------------------------------------------
-#  This routine takes in a date string and calculates the julian date (days since 
+#  This routine takes in a date string and calculates the julian date (days since
 #  beginning of year 1 .. 366. It returns a string DDD.
 #----------------------------------------------------------------------------------
 #
